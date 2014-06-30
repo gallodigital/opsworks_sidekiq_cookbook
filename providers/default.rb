@@ -87,7 +87,7 @@ action :create do
               "name" => name
   end
 
-  template "#{node.default[:monit][:conf_dir]}/sidekiq_#{name}.monitrc" do
+  template "#{node.default["monit"]["conf_dir"]}/sidekiq_#{name}.monitrc" do
     source 'sidekiq.monitrc.erb'
     owner 'root'
     group 'root'
@@ -96,4 +96,6 @@ action :create do
               "pid_dir" => pid_dir
     notifies :restart, "service[monit]", :immediately
   end
+
+  new_resource.updated_by_last_action(true)
 end
