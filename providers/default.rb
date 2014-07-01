@@ -56,6 +56,7 @@ action :create do
 
   template config_file do
     source 'config.yml.erb'
+    cookbook 'opsworks_sidekiq'
     owner user
     group group
     mode 0755
@@ -69,6 +70,7 @@ action :create do
 
   template "/usr/local/bin/stop_sidekiq_#{name}.sh" do
     source 'stop_sidekiq.sh.erb'
+    cookbook 'opsworks_sidekiq'
     owner user
     group group
     mode 0755
@@ -77,6 +79,7 @@ action :create do
 
   template "/usr/local/bin/start_sidekiq_#{name}.sh" do
     source 'start_sidekiq.sh.erb'
+    cookbook 'opsworks_sidekiq'
     owner user
     group group
     mode 0755
@@ -89,6 +92,7 @@ action :create do
 
   template "#{node.default["monit"]["conf_dir"]}/sidekiq_#{name}.monitrc" do
     source 'sidekiq.monitrc.erb'
+    cookbook 'opsworks_sidekiq'
     owner 'root'
     group 'root'
     mode '0644'
