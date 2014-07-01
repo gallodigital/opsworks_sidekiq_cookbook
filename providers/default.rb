@@ -33,6 +33,10 @@ action :create do
   config_file = "#{config_dir}/#{name}.yml"
   log_file = "#{log_dir}/sidekiq-#{name}.log"
 
+  service 'monit' do
+    action :nothing
+  end
+
   directory config_dir do
     mode 0755
   end
