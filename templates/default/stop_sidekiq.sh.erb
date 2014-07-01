@@ -1,10 +1,14 @@
 #!/bin/sh
 
+export RAILS_ENV="<%= @rails_env %>"
+export RACK_ENV="<%= @rails_env %>"
+export PATH=/usr/local/bin:/usr/local/sbin:/opt/aws/bin:$PATH
+
 # Tell Sidekiq to stop accepting work
-su <%= @user %> -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiqctl quiet <%= @pid_dir %>/sidekiq.pid'
+su <%= @user %> -s /bin/bash -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiqctl quiet <%= @pid_dir %>/sidekiq.pid'
 
 # Give Sidekiq some time to finish work
 sleep 10
 
 # Tell Sidekiq to stop
-su <%= @user %> -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiqctl stop <%= @pid_dir %>/sidekiq.pid'
+su <%= @user %> -s /bin/bash -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiqctl stop <%= @pid_dir %>/sidekiq.pid'
