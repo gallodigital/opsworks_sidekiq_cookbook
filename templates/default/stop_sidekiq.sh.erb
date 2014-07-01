@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Tell Sidekiq to stop accepting work
-su <%= @user %> -c '/usr/local/bin/bundle exec sidekiqctl quiet <%= @pid_dir %>/sidekiq.pid'
+su <%= @user %> -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiqctl quiet <%= @pid_dir %>/sidekiq.pid'
 
 # Give Sidekiq some time to finish work
 sleep 10
 
 # Tell Sidekiq to stop
-su <%= @user %> -c '/usr/local/bin/bundle exec sidekiqctl stop <%= @pid_dir %>/sidekiq.pid'
+su <%= @user %> -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiqctl stop <%= @pid_dir %>/sidekiq.pid'
