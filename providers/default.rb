@@ -79,6 +79,7 @@ action :create do
     group group
     mode 0755
     variables "pid_dir" => pid_dir,
+              "log_dir" => log_dir,
               "user" => user,
               "name" => name,
               "rails_root" => rails_root
@@ -93,6 +94,7 @@ action :create do
     variables "rails_env" => rails_env,
               "config_file" => config_file,
               "log_file" => log_file,
+              "log_dir" => log_dir,
               "user" => user,
               "name" => name,
               "rails_root" => rails_root
