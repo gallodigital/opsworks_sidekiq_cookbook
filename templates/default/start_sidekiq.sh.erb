@@ -4,4 +4,4 @@ export RAILS_ENV="<%= @rails_env %>"
 export RACK_ENV="<%= @rails_env %>"
 export PATH=/usr/local/bin:/usr/local/sbin:/opt/aws/bin:$PATH
 
-su <%= @user %> -s /bin/bash -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiq --environment <%= @rails_env %> --config <%= @config_file %> --logfile <%= @log_file %>'
+su <%= @user %> -s /bin/bash -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiq --environment <%= @rails_env %> --config <%= @config_file %> --logfile <%= @log_file %> --pidfile <%= @pid_dir $>/sidekiq.pid --daemon >> <%= @log_dir %>/<%= @name %>_start.log 2>&1'
