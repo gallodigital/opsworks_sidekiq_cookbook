@@ -30,6 +30,7 @@ action :create do
   pid_dir = new_resource.pid_dir || node['sidekiq']['pid_dir']
   log_dir = new_resource.log_dir || node['sidekiq']['log_dir']
 
+  pid_file = "#{pid_dir}/#{name}.pid"
   config_file = "#{config_dir}/#{name}.yml"
   log_file = "#{log_dir}/sidekiq-#{name}.log"
 
@@ -68,7 +69,7 @@ action :create do
               'concurrency' => new_resource.concurrency,
               'processes' => new_resource.processes,
               'sidekiq_timeout' => new_resource.sidekiq_timeout,
-              'pid_dir' => pid_dir,
+              'pid_file' => pid_file,
               'queues' => new_resource.queues
   end
 
@@ -78,7 +79,7 @@ action :create do
     owner user
     group group
     mode 0755
-    variables "pid_dir" => pid_dir,
+    variables "pid_file" => pid_file,
               "log_dir" => log_dir,
               "user" => user,
               "name" => name,
@@ -93,6 +94,7 @@ action :create do
     mode 0755
     variables "rails_env" => rails_env,
               "config_file" => config_file,
+              "pid_file" => pid_file,
               "log_file" => log_file,
               "log_dir" => log_dir,
               "user" => user,
@@ -107,7 +109,7 @@ action :create do
     group 'root'
     mode '0644'
     variables "name" => name,
-              "pid_dir" => pid_dir
+              "pid_file" => pid_file
     notifies :restart, "service[monit]", :immediately
   end
 
