@@ -78,7 +78,10 @@ action :create do
     owner user
     group group
     mode 0755
-    variables "pid_dir" => pid_dir, "user" => user, "name" => name
+    variables "pid_dir" => pid_dir,
+              "user" => user,
+              "name" => name,
+              "rails_root" => rails_root
   end
 
   template "/usr/local/bin/start_sidekiq_#{name}.sh" do
@@ -91,7 +94,8 @@ action :create do
               "config_file" => config_file,
               "log_file" => log_file,
               "user" => user,
-              "name" => name
+              "name" => name,
+              "rails_root" => rails_root
   end
 
   template "#{node.default["monit"]["conf_dir"]}/sidekiq_#{name}.monitrc" do
