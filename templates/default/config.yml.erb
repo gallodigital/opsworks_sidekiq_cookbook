@@ -1,7 +1,7 @@
 ---
 :verbose: <%= @verbose %>
 :concurrency: <%= @concurrency %>
-:pid_file: <%= @pid_dir %>/sidekiq.pid
+:pid_file: <%= @pid_file %>
 :timeout: <%= @sidekiq_timeout %>
 :queues:
 <% @queues.each do |queue_name, priority| %>
