@@ -52,6 +52,15 @@ action :create do
     mode 0775
   end
 
+  %w{start quiet stop}.each do |phase|
+    file "#{log_dir}/#{name}_#{phase}.log" do
+      owner user
+      group group
+      mode 0755
+      action :create_if_missing
+    end
+  end
+
   file log_file do
     owner user
     group group
