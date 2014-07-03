@@ -35,7 +35,7 @@ action :create do
   log_file = "#{log_dir}/sidekiq-#{name}.log"
 
   execute "reload-monit" do
-    command "monit reload"
+    command "monit -Iv reload"
     action :nothing
   end
 
