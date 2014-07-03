@@ -123,5 +123,9 @@ action :create do
     notifies :run, "execute[reload-monit]"
   end
 
+  execute "restart-sidekiq-service" do
+    command "monit -Iv restart sidekiq_#{name}"
+  end
+
   new_resource.updated_by_last_action(true)
 end
