@@ -34,7 +34,8 @@ action :create do
   config_file = "#{config_dir}/#{name}.yml"
   log_file = "#{log_dir}/sidekiq-#{name}.log"
 
-  service 'monit' do
+  execute "reload-monit" do
+    command "monit reload"
     action :nothing
   end
 
@@ -119,7 +120,7 @@ action :create do
     mode '0644'
     variables "name" => name,
               "pid_file" => pid_file
-    notifies :restart, "service[monit]", :immediately
+    notifies :run, "execute[reload-monit]"
   end
 
   new_resource.updated_by_last_action(true)
