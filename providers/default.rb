@@ -120,7 +120,7 @@ action :create do
     mode '0644'
     variables "name" => name,
               "pid_file" => pid_file
-    notifies :run, "execute[reload-monit]"
+    notifies :run, "execute[reload-monit]", :immediately # Run immediately to ensure the following command works
   end
 
   execute "restart-sidekiq-service" do
