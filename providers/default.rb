@@ -34,7 +34,7 @@ action :create do
   config_file = "#{config_dir}/#{name}.yml"
   log_file = "#{log_dir}/sidekiq-#{name}.log"
 
-  execute "reload-monit" do
+  execute "reload-monit-for-sidekiq" do
     command "monit -Iv reload"
     action :nothing
   end
@@ -120,7 +120,7 @@ action :create do
     mode '0644'
     variables "name" => name,
               "pid_file" => pid_file
-    notifies :run, "execute[reload-monit]", :immediately # Run immediately to ensure the following command works
+    notifies :run, "execute[reload-monit-for-sidekiq]", :immediately # Run immediately to ensure the following command works
   end
 
   # Restart sidekiq if it's already running
