@@ -123,8 +123,10 @@ action :create do
     notifies :run, "execute[reload-monit]", :immediately # Run immediately to ensure the following command works
   end
 
+  # Restart sidekiq if it's already running
   execute "restart-sidekiq-service" do
     command "monit -Iv restart sidekiq_#{name}"
+    only_if { ::File.exists?(pid_file) }
   end
 
   new_resource.updated_by_last_action(true)
