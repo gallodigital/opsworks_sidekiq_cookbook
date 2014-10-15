@@ -22,6 +22,7 @@ action :create do
   user       = new_resource.user
   group      = new_resource.group
   rails_root = new_resource.working_directory
+  envs       = new_resource.environment
 
   service_name = new_resource.include_prefix ? "sidekiq-#{name}" : name
 
@@ -109,7 +110,8 @@ action :create do
               "log_dir" => log_dir,
               "user" => user,
               "name" => name,
-              "rails_root" => rails_root
+              "rails_root" => rails_root,
+              "environment" => envs
   end
 
   template "#{node.default["monit"]["conf_dir"]}/sidekiq_#{name}.monitrc" do
