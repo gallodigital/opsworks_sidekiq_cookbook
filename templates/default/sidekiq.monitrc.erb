@@ -5,5 +5,5 @@ check process sidekiq_<%= @name %>
   start program = "/usr/local/bin/start_sidekiq_<%= @name %>.sh" with timeout 30 seconds
   stop program = "/usr/local/bin/stop_sidekiq_<%= @name %>.sh" with timeout 30 seconds
   group <%= @name %>
-  if total cpu is greater than 50% for 3 cycles then restart
-  if total memory is greater than 50% for 3 cycles then restart
+  if cpu is greater than 50% for 3 cycles then restart
+  if memory is greater than 50% for 3 cycles then restart
