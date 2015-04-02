@@ -10,4 +10,4 @@ export <%= key %>="<%= value %>"
 	<% end %>
 <% end %>
 
-su <%= @user %> -s /bin/bash -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiq --environment <%= @rails_env %> --config <%= @config_file %> --logfile <%= @log_file %> --pidfile <%= @pid_file %> --daemon >> <%= @log_dir %>/<%= @name %>_start.log 2>&1'
+su <%= @user %> -s /bin/bash -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec sidekiq --environment <%= @rails_env %> --config <%= @config_file %> --logfile <%= @log_file %> --pidfile <%= @pid_file %> --index 0 --daemon >> <%= @log_dir %>/<%= @name %>_start.log 2>&1'
