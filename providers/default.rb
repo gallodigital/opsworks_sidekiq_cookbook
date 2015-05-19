@@ -70,6 +70,14 @@ action :create do
     action :create_if_missing
   end
 
+  template "/etc/logrotate.d/sidekiq_#{name}" do
+    source 'logrotate.erb'
+    owner 'root'
+    group 'root'
+    variables 'log_dir' => log_dir
+    mode 0644
+  end
+
   template config_file do
     source 'config.yml.erb'
     cookbook 'opsworks_sidekiq'
