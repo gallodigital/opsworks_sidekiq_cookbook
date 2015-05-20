@@ -72,6 +72,7 @@ action :create do
 
   template "/etc/logrotate.d/sidekiq_#{name}" do
     source 'logrotate.erb'
+    cookbook 'opsworks_sidekiq'
     owner 'root'
     group 'root'
     variables 'log_dir' => log_dir
